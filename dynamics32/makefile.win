@@ -1,0 +1,39 @@
+# Project: dynamics32
+# Makefile created by Red Panda C++ 3.2.2958
+
+CXX      = "g++.exe"
+CC       = "gcc.exe"
+WINDRES  = "windres.exe"
+RM       = del /q /f
+CD       = cd /d
+LIBS     = 
+INCS     = 
+CXXINCS  = 
+CXXFLAGS = $(CXXINCS) "-g3" "-pipe" "-Wall" "-DBUILDING_DLL=1" "-D_DEBUG"
+CFLAGS   = $(INCS) "-g3" "-pipe" "-Wall" "-DBUILDING_DLL=1" "-D_DEBUG"
+WINDRESFLAGS = 
+RES      = dynamics32_private.res
+OBJ      = dllmain.o $(RES)
+BIN      = libdynamics32.dll
+LINKOBJ  = "dllmain.o" "dynamics32_private.res"
+CLEANOBJ = "dllmain.o" "dynamics32_private.res" "libdynamics32.dll"
+DEF      = 
+STATIC   = libdynamics32.a
+OUTPUT_DEF = libdynamics32.def
+
+.PHONY: all all-before all-after clean clean-custom
+
+all: all-before $(BIN) all-after
+
+clean: clean-custom
+	-$(RM) $(CLEANOBJ) $(STATIC) >NUL 2>&1
+
+libdynamics32.dll: $(DEF) $(OBJ)
+	$(CC) -mdll $(LINKOBJ) -o "libdynamics32.dll" $(LIBS) $(DEF) -Wl,--output-def,$(OUTPUT_DEF),--out-implib,$(STATIC)
+
+dllmain.o: dllmain.c dll.h
+	$(CC) -c "dllmain.c" -o "dllmain.o" $(CFLAGS)  -finput-charset=UTF-8 -fexec-charset=gbk
+
+dynamics32_private.res: dynamics32_private.rc 
+	$(WINDRES) -i "dynamics32_private.rc" --input-format=rc -o "dynamics32_private.res" -O coff $(WINDRESFLAGS) 
+

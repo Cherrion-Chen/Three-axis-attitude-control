@@ -1,0 +1,22 @@
+[
+    {
+        "caretX": 7,
+        "caretY": 22,
+        "filename": "C:/Users/Administrator/Desktop/三轴姿态控制/dynamics32/dll.h",
+        "focused": false,
+        "isOpen": true,
+        "left": 0,
+        "order": 0,
+        "top": 0
+    },
+    {
+        "caretX": 39,
+        "caretY": 33,
+        "filename": "C:/Users/Administrator/Desktop/三轴姿态控制/dynamics32/dllmain.c",
+        "focused": true,
+        "isOpen": true,
+        "left": 0,
+        "order": 1,
+        "top": 882
+    }
+]

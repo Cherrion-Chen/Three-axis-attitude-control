@@ -1,0 +1,7 @@
+EXPORTS
+    f @1
+    gradient @2
+    jacobian @3
+    norm @4
+    quaternion @5
+    set_I @6

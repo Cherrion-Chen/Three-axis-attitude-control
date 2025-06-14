@@ -1,0 +1,39 @@
+# Project: dynamics64
+# Makefile created by Red Panda C++ 3.2.2958
+
+CXX      = "g++.exe"
+CC       = "gcc.exe"
+WINDRES  = "windres.exe"
+RM       = del /q /f
+CD       = cd /d
+LIBS     = 
+INCS     = 
+CXXINCS  = 
+CXXFLAGS = $(CXXINCS) "-g3" "-pipe" "-Wall" "-DBUILDING_DLL=1" "-D_DEBUG"
+CFLAGS   = $(INCS) "-g3" "-pipe" "-Wall" "-DBUILDING_DLL=1" "-D_DEBUG"
+WINDRESFLAGS = 
+RES      = dynamics64_private.res
+OBJ      = dllmain.o $(RES)
+BIN      = libdynamics64.dll
+LINKOBJ  = "dllmain.o" "dynamics64_private.res"
+CLEANOBJ = "dllmain.o" "dynamics64_private.res" "libdynamics64.dll"
+DEF      = 
+STATIC   = libdynamics64.a
+OUTPUT_DEF = libdynamics64.def
+
+.PHONY: all all-before all-after clean clean-custom
+
+all: all-before $(BIN) all-after
+
+clean: clean-custom
+	-$(RM) $(CLEANOBJ) $(STATIC) >NUL 2>&1
+
+libdynamics64.dll: $(DEF) $(OBJ)
+	$(CC) -mdll $(LINKOBJ) -o "libdynamics64.dll" $(LIBS) $(DEF) -Wl,--output-def,$(OUTPUT_DEF),--out-implib,$(STATIC)
+
+dllmain.o: dllmain.c dll.h
+	$(CC) -c "dllmain.c" -o "dllmain.o" $(CFLAGS)  -finput-charset=UTF-8 -fexec-charset=gbk
+
+dynamics64_private.res: dynamics64_private.rc 
+	$(WINDRES) -i "dynamics64_private.rc" --input-format=rc -o "dynamics64_private.res" -O coff $(WINDRESFLAGS) 
+
